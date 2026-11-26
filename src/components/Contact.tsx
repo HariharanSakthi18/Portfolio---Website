@@ -60,16 +60,18 @@ const Contact = () => {
   return (
     <Section
       id="contact"
+      scene="07"
       eyebrow="Get in touch"
-      title={<>Let's build something <span className="gradient-text-accent">together</span>.</>}
+      variant="contact"
+      title={<>Let's build something <span className="font-serif-italic normal-case gradient-text">together</span>.</>}
       description="Have a role, project, or just want to say hi? Drop a message."
     >
-      <div className="grid lg:grid-cols-[1fr_1.3fr] gap-6">
+      <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="grid lg:grid-cols-[1fr_1.3fr] gap-6">
         <div className="space-y-3">
           {info.map((i) => {
             const Inner = (
               <>
-                <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                <div className="p-2.5 rounded-xl bg-primary/15 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <i.icon className="w-5 h-5" />
                 </div>
                 <div>
@@ -82,19 +84,19 @@ const Contact = () => {
               <a
                 key={i.label}
                 href={i.href}
-                className="glass rounded-2xl p-5 flex items-start gap-4 hover:border-primary/40 transition-colors"
+                className="group glass rounded-2xl p-5 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-card"
               >
                 {Inner}
               </a>
             ) : (
-              <div key={i.label} className="glass rounded-2xl p-5 flex items-start gap-4">
+              <div key={i.label} className="group glass rounded-2xl p-5 flex items-start gap-4">
                 {Inner}
               </div>
             );
           })}
         </div>
 
-        <form onSubmit={onSubmit} className="glass rounded-2xl p-6 sm:p-8 space-y-4">
+        <form onSubmit={onSubmit} className="glass relative rounded-3xl p-6 sm:p-8 space-y-4 shadow-card">
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Your name">
               <input
@@ -130,7 +132,7 @@ const Contact = () => {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-accent hover:text-accent-foreground hover:shadow-[var(--shadow-glow)] transition-all disabled:opacity-60"
+            className="btn-primary w-full disabled:opacity-60 disabled:hover:translate-y-0"
           >
             {status === "loading" ? (
               <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>
@@ -162,7 +164,7 @@ const Contact = () => {
             </motion.div>
           )}
         </form>
-      </div>
+      </motion.div>
 
       <style>{`
         .input {
